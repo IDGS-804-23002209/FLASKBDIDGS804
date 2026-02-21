@@ -23,9 +23,30 @@ def index():
 	alumno = Alumno.query.all()
 	return render_template("index.html", form=create_form, alumno=alumno)
 
-@app.route("/Alumnos")
+@app.route("/Alumnos", methods=['GET', 'POST'])
 def alumnos():
-	return render_template("Alumnos.html")
+	create_form = forms.UserForm(request.form)
+	if request.method == 'POST':
+		alum = Alumno(nombre=create_form.nombre.data,
+					  apaterno=create_form.apaterno.data,
+					  email=create_form.email.data)
+		db.session.add(alum)
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template("Alumnos.html", form=create_form)
+
+@app.route("/detalles", methods=['GET', 'POST'])
+def detalles():
+	create_form = forms.UserForm(request.form)
+	if request.method == 'GET':
+		id=request.args.get('id')
+		alm1 = db.session.query(Alumno).filter(Alumno.id==id).first()
+		id=request.args.get('id')
+		nombre=alm1.nombre
+		apaterno=alm1.apaterno
+		email=alm1.email
+
+	return render_template('detalles.html', nombre=nombre, apaterno=apaterno, email=email)
 
 if __name__ == '__main__':
 	csrf.init_app(app)
