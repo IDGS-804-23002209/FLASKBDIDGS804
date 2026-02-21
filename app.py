@@ -8,7 +8,9 @@ import forms
 from models import db
 from models import Alumnos
 
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mi_clave_secreta'
 app.config.from_object(DevelopmentConfig)
 csrf=CSRFProtect()
 
@@ -17,12 +19,33 @@ csrf=CSRFProtect()
 def index():
 	create_form=forms.UserForm(request.form)
 	#tem= Alumnos.query('select * from alumnos')
-	alumno=Alumnos.query.all()
-	return render_template("index.html",form=create_form,alumno=alumno)
+	alumno = Alumnos.query.all()
+	return render_template("index.html",form=create_form, alumno=alumno)
 
-@app.route("/Alumnos")
-def Alumnos():
-	return render_template("Alumnos.html")
+@app.route("/Alumnos", methods=['GET', 'POST'])
+def M_alumno():
+	create_form = forms.UserForm(request.form)
+	if request.method=='POST':
+		alum=Alumnos(nombre=create_form.nombre.data,
+			         apaterno=create_form.apaterno.data,
+			         email=create_form.email.data)
+		db.session.add(alum)
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template("Alumnos.html",form=create_form)
+
+@app.route("/detalles", methods=['GET', 'POST'])
+def detalles():
+	create_form = forms.UserForm(request.form)
+	if request.method=='GET':
+		id=request.args.get('id')
+		# select * from alumnos where id == id
+		alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		id=request.args.get('id')
+		nombre=alum1.nombre
+		apaterno=alum1.apaterno
+		email=alum1.email
+	return render_template ('detalles.html', id=id, nombre=nombre, apaterno=apaterno, email=email)
 
 @app.errorhandler(404)
 def page_not_found(error):
