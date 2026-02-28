@@ -7,12 +7,21 @@
     <div class="bg-white w-full max-w-lg p-10 rounded-3xl shadow-2xl">
 
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
-            Registrar Alumno
+            Registrar Mestro
         </h2>
 
         <form method="POST" class="space-y-6">
             {{ form.csrf_token }}
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />    
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />  
+
+             <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-2">
+                </label>
+                {{ macro.camposNuevos(form.matricula,
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2
+                focus:ring-blue-500 transition"
+                ) }}
+            </div>
 
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-2">
@@ -35,6 +44,15 @@
             <div>
                 <label class="block text-sm font-semibold text-gray-600 mb-2">
                 </label>
+                {{ macro.camposNuevos(form.especialidad,
+                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2
+                focus:ring-blue-500 transition"
+                ) }}
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-gray-600 mb-2">
+                </label>
                 {{ macro.camposNuevos(form.email,
                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2
                 focus:ring-blue-500 transition"
@@ -46,7 +64,7 @@
                 <!-- Botón Guardar -->
                 <button type="submit"
                     class="w-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition shadow-lg">
-                    Guardar
+                    Eliminar
                 </button>
 
                 <!-- Botón Cancelar -->

@@ -15,7 +15,7 @@ from maestros.routes import maestros
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mi_clave_secreta'
 app.config.from_object(DevelopmentConfig)
-app.app.register_blueprint(maestros)
+app.register_blueprint(maestros)
 db.init_app(app)
 migrate=Migrate(app, db)
 csrf=CSRFProtect()
