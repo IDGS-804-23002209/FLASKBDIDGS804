@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: bdidgs804
@@ -76,3 +77,8 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-02-21  9:35:44
+=======
+DROP DATABASE IF EXISTS bdidgs804;
+CREATE DATABASE bdidgs804;
+USE bdidgs804;
+>>>>>>> 5d0e5cb02d7b8789d994332094f5671803e63677
