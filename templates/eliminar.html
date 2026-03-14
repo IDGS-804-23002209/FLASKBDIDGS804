@@ -2,9 +2,27 @@
 {% block container %}
 {% import "_macros.html" as macro %}
 
-<form class="max-w-md mx-auto" method="POST">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 mt-4">
+      {% for category, message in messages %}
+        <div class="flex items-center p-4 mb-4 text-sm rounded-lg {% if category == 'warning' %} text-yellow-800 bg-yellow-50 border border-yellow-300 {% elif category == 'danger' %} text-red-800 bg-red-50 border border-red-300 {% else %} text-blue-800 bg-blue-50 border border-blue-300 {% endif %}" role="alert">
+          <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div>
+            <span class="font-medium">Aviso del sistema:</span> {{ message }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<form class="max-w-md mx-auto" method="POST" novalidate>
     {{ form.csrf_token }}
-    <div class="relative z-0 w-full mb-5 group">
+    <div class="relative z-0 w-full mb-5 group" hidden>
         {{macro.camposNuevos(form.id, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
@@ -20,7 +38,7 @@
     {{macro.camposNuevos(form.email, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")}}
   </div>
   <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Eliminar</button>
-  <a href="{{ url_for('index') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none inline-block border border-transparent">Cancelar</a>
+  <a href="{{ url_for('alum') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none inline-block border border-transparent">Cancelar</a>
 </form>
 
 {% endblock %}

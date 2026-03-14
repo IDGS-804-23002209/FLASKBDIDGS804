@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macro %}
+
+<div class="py-20">
+    <h2 class="text-2xl font-bold mb-10 text-center text-heading">Nueva Inscripción</h2>
+    
+    <form class="max-w-md mx-auto" method="POST" novalidate>
+        {{ form.csrf_token }}
+        
+        {# Campo de ID #}
+        <div class="relative z-0 w-full mb-5 group" hidden>
+            {{ macro.camposNuevos(form.id, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        {# Selección de Alumno #}
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.camposNuevos(form.alumno, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        {# Selección de Curso #}
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.camposNuevos(form.curso, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        {# Fecha de Inscripción #}
+        <div class="relative z-0 w-full mb-8 group">
+            {{ macro.camposNuevos(form.fecha_inscripcion, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer", readonly=True) }}
+        </div>
+
+        {# Botones #}
+        <div class="flex gap-4">
+            <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Eliminar
+            </button>
+            
+            <a href="{{ url_for('inscripciones.index') }}" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none inline-block border border-transparent">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

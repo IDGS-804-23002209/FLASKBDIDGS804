@@ -2,9 +2,9 @@
 {% block container %}
 {% import "_macros.html" as macro %}
 
-<form class="max-w-md mx-auto" method="POST">
+<form class="max-w-md mx-auto" method="POST" novalidate>
     {{ form.csrf_token }}
-    <div class="relative z-0 w-full mb-5 group">
+    <div class="relative z-0 w-full mb-5 group" hidden>
         {{macro.camposNuevos(form.matricula, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer")}}
     </div>
     <div class="relative z-0 w-full mb-5 group">
